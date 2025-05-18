@@ -1,0 +1,198 @@
+\documentclass[12pt]{beamer}
+
+%For Notes
+\usepackage{pgfpages} % for notes
+\setbeameroption{show notes on second screen=right} % Shows the note (for Teaching)
+% \setbeameroption{hide notes} % Hides the note (for students)
+\setbeamertemplate{note page}{\pagecolor{yellow!5}\insertnote}\usepackage{palatino}
+% Example -  \note[item]{To be placed inside frame}
+% Example - \note[]{\fontsize{10}{10}\selectfont
+
+%For References
+\usepackage[style=ieee,defernumbers=true]{biblatex}
+\addbibresource{reference-1.bib}
+\renewcommand{\bibfont}{\tiny} % Ensure small font for bibliography
+
+%for German Quotation Mark „ “
+\usepackage[ngerman]{babel}
+
+
+\usetheme{Copenhagen}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath} 
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{xcolor} % Required for colored text
+
+
+
+
+
+\title{Example Presentation}
+\author{Aaditya Neupane}
+\date{31.07.2024}
+
+\begin{document}
+
+\maketitle
+\begin{frame}{Contents of This Presentation}
+\begin{enumerate}
+
+    \item Introduction
+    \item Some Basic Math Formula
+    \item Integration and Differentiation
+    \item Vector and Matrix
+    \item Sin and Cos function Graphs
+
+\end{enumerate}
+
+    \note[item]{This page is for contents}
+
+  \note[item]{Explain about the contents}
+
+  \note[item]{Next slide is Introduction}
+\begin{tikzpicture}[remember picture, overlay]
+  \node[anchor=north west, yshift=-8cm, xshift=1cm] at (current page.north west) {
+    \fontsize{10}{8}\selectfont
+    \textcolor{black}{
+      \cite{pufe2017}
+    }
+  };
+\end{tikzpicture}
+
+
+\end{frame}
+    
+
+  
+
+
+\begin{frame}{Introduction}
+Using LaTeX to Create Math formulas, referencing, drawing, writing, and presentation.
+\begin{tikzpicture}[remember picture, overlay]
+  \node[anchor=north west, yshift=-8cm, xshift=1cm] at (current page.north west) {
+    \fontsize{10}{8}\selectfont
+    \textcolor{black}{
+      \cite{buetzler2020}
+    }
+  };
+\end{tikzpicture}
+
+\end{frame}
+
+
+
+\begin{frame}{Some Basic Math Formula}
+\begin{enumerate}
+    \item \textbf{Quadratic Formula} $ax^2+bx+c$
+    $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+    \item \textbf{Area of a Circle}
+    $$A = \pi r^2$$
+    \item \textbf{Trigonometric Formulas}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{c|c}
+        
+            \(\sin(\theta) = \frac{\text{opposite}}{\text{hypotenuse}}\) & \(\csc(\theta) = \frac{\text{hypotenuse}}{\text{opposite}}\)  \\ \\ \hline \\
+            \(\cos(\theta) = \frac{\text{adjacent}}{\text{hypotenuse}}\) & \(\sec(\theta) = \frac{\text{hypotenuse}}{\text{adjacent}}\) \\ \\ \hline \\
+            \(\tan(\theta) = \frac{\text{opposite}}{\text{adjacent}}\) & \(\cot(\theta) = \frac{\text{adjacent}}{\text{opposite}}\) \\
+        \end{tabular}
+        \caption{Trigonometric Formulas}
+    \end{table}
+\end{enumerate}
+\end{frame}
+\begin{frame}{Integration and Differentiation}
+\begin {enumerate}
+    \item \textbf{Integrals}
+    $$\int_a^b f(x) \, dx = F(b) - F(a)$$
+    \item \textbf{Partial Derivative}
+     \\Example of a partial derivative equation: For the equation:
+     \\\( f(x, y) = x^2 y + y^3 \).
+     \\Derivative of \( f \) with respect to \( x \) is:
+    \begin{equation}\frac{\partial f}{\partial x} = 2xy\end{equation}
+    
+    Derivative of \( f \) with respect to \( y \) is:
+
+    \begin{equation}\frac{\partial f}{\partial y} = x^2 + 3y^2\end{equation}
+\end {enumerate}
+\end{frame}
+
+\begin{frame}{Integration and Differentiation}
+\begin {enumerate}[3]
+\item \textbf{Example} of Gradient Descent with scatter points in 3D 
+    \\
+    \textcolor{gray}{** This image was uploaded, not made using LaTeX **}
+    \centering
+    \includegraphics[scale=0.3]{download.png}
+\end {enumerate}
+\end{frame}
+\begin{frame}{Vector and Matrix}
+\begin {enumerate}
+ \item \textbf{Vector}
+ \\ $$\vec{A}=\vec{B} + \vec{C}$$
+ \\\begin{tikzpicture}
+    \draw[->, thick] (0,0) -- (2,1) node[midway, below] {$\vec{B}$};
+    \draw[->, thick] (2,1) -- (4,4) node[midway, right] {$\vec{C}$};
+    \draw[->, thick] (0,0) -- (4,4) node[midway, above] {$\vec{A}$};
+    \fill (0,0) circle (2pt) node[below left] {O};
+\end{tikzpicture}
+\end {enumerate}
+\end{frame}
+\begin{frame}{Vector and Matrix}
+\begin {enumerate}[2]
+\item \textbf{Matrix}
+\\ Example of a 3x3 Matrix:
+$$\begin{bmatrix}
+    1&2&3
+    \\4&5&6
+    \\7&8&9
+\end{bmatrix}$$
+\\
+\end {enumerate}
+\end{frame}
+\begin{frame}{Sin and Cos function Graphs}
+\begin{tikzpicture}
+    \begin{axis}[
+        clip=false,
+        xmin=0,
+        xmax=2.5*pi,
+        ymin=-1.5,
+        ymax=1.5,
+        xtick={0,pi/2,pi,3*pi/2,2*pi},
+        xticklabels={$0$,$\frac{\pi}{2}$,$\pi$,$\frac{3}{2}\pi$,$2\pi$},
+        axis lines = middle,
+        xticklabel style={anchor=south west},
+        xmajorgrids=true,
+        grid style=dashed
+    ]
+    \addplot[
+        domain = 0:2*pi,
+        samples = 100,
+        color = blue,
+    ]{sin(deg(x))};
+    \addlegendentry{$\sin(x)$}
+    
+    \addplot[
+        domain = 0:2*pi,
+        samples = 100,
+        color = red,
+    ]{cos(deg(x))};
+    \addlegendentry{$\cos(x)$}
+    \end{axis}
+\end{tikzpicture}
+\end{frame}
+
+
+\begin{frame}{References}
+\printbibliography[heading=none, keyword=frame1]
+\end{frame}
+
+\begin{frame}{References}
+\printbibliography[heading=none, keyword=frame2]
+\end{frame}
+
+
+
+
+
+\end{document}
