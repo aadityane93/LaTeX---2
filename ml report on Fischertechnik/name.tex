@@ -1,0 +1,459 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, framecolor=blue]{hyperref} % Customize link and box colors
+\usepackage{float}
+
+% Adjust page margins
+\usepackage[margin=1in]{geometry} % Adjust the margin size as needed
+
+\title{A Short Report On Predictive Models for Condition Monitoring of Hydraulic Systems }
+\author{Aaditya Neupane}
+\date{December 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+\begin{itemize}
+    \item Dataset used to train the models - 
+    \href{https://www.kaggle.com/datasets/jjacostupa/condition-monitoring-of-hydraulic-systems}{https://www.kaggle.com/datasets/jjacostupa/condition-monitoring-of-hydraulic-systems}  % Replace "Link Text" with your desired link text 
+    \item Features:- PS1, PS2, PS3, PS4, PS5, PS6, FS1, FS2, TS1, TS2, TS3, TS4, EPS1, VS1, CE, CP, SE
+    \\
+    Targets:- profile : stableFlag
+    \\
+    \item Approaches used to balance the dataset 
+            \begin{itemize}
+                \item Approach 1 - Downsampling to 1hz
+                \item Approach 2 - Upsampling and Downsampling to 10hz
+                \item Approach 3 - Mean of a cycle for each sensor value
+            \end{itemize}
+
+    \item Models Trained:
+            \begin{itemize}
+                \item XGB
+                \item Random forest
+                \item SVM
+                \item Neural Network
+            \end{itemize}
+
+    \item Approaches used to train the Models 
+        \begin{itemize}
+            \item k-fold cross validation
+            \item Test-Train-Split
+        \end{itemize}
+
+
+\end{itemize}
+\vspace{1cm}
+\section{Pre-processing}
+\begin{itemize}
+    \item Upsampling - Upsampled the 1hz sensor values to 10hz
+    \item Downsampling - Downsampled the 10hz/100hz sensor values to 1hz/10hz
+    \item Min Max Scaling - Normalized the features to improve the model performance
+\end{itemize}
+
+
+
+
+
+\section{Results}
+Note : The Given Accuracy, Precision, Recall score for the k-fold method are the average taken from all the folds
+
+\begin{itemize}
+    \item Approach 1 - Downsampling to 1hz
+\begin{itemize}
+        \item XGB
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.9655 & 0.9656 \\
+                \hline
+                Test Train Split & 0.9615 & 0.9615 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                289 & 5 \\
+                \hline
+                12 & 135 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - XGB}
+            \label{tab:combined_table}
+            \end{table}
+
+        \item SVM
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.9196 &  0.9323 \\
+                \hline
+                Test Train Split & 0.9244 & 0.9278 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                432  & 14 \\
+                \hline
+                36 & 180 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - SVM}
+            \label{tab:combined_table}
+            \end{table}
+
+        \item Random Forest
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.9784 & 1.0 \\
+                \hline
+                Test Train Split & 0.9682 & 1.0 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                294 & 0 \\
+                \hline
+                14 & 133 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - Random Forest}
+            \label{tab:combined_table}
+            \end{table}
+        
+        \item Neural Network
+            
+            \begin{table}[H]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.6871 & 0.7092 \\
+                \hline
+                Test Train Split & 0.72 & 0.73 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                294 & 0 \\
+                \hline
+                14 & 133 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - Neural Network}
+            \label{tab:combined_table}
+            \end{table}
+\end{itemize}
+
+\clearpage
+
+
+
+
+
+\begin{itemize}
+    \item Approach 2 - Upsampling and Downsampling to 10hz
+\begin{itemize}
+        \item XGB
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.9642 & 0.9642 \\
+                \hline
+                Test Train Split & 0.9569 & 0.9569 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                288 & 6 \\
+                \hline
+                13 & 134 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - XGB}
+            \label{tab:combined_table}
+            \end{table}
+
+        \item SVM
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.9241 &  0.9423 \\
+                \hline
+                Test Train Split & 0.9244 & 0.9278 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                432  & 14 \\
+                \hline
+                36 & 180 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - SVM}
+            \label{tab:combined_table}
+            \end{table}
+
+        \item Random Forest
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.9676 & 0.9945 \\
+                \hline
+                Test Train Split & 1.0 & 0.9705 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                294 & 0 \\
+                \hline
+                13 & 134 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - Random Forest}
+            \label{tab:combined_table}
+            \end{table}
+        
+        \item Neural Network
+            
+            \begin{table}[H]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.9172 & 0.9217 \\
+                \hline
+                Test Train Split & 0.95 & 0.94 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                284 & 10 \\
+                \hline
+                13 & 134 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - Neural Network}
+            \label{tab:combined_table}
+            \end{table}
+            
+
+
+            
+\end{itemize}
+
+
+
+
+
+
+\clearpage
+
+
+
+
+
+\begin{itemize}
+    \item Approach 3 - Mean of a cycle for each sensor value
+\begin{itemize}
+        \item XGB
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.9673 & 0.9681 \\
+                \hline
+                Test Train Split & 0.9637 & 0.9650 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                293 & 1 \\
+                \hline
+                15 & 132 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - XGB}
+            \label{tab:combined_table}
+            \end{table}
+
+        \item SVM
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.9111 &  0.9222 \\
+                \hline
+                Test Train Split & 0.9000 & 0.8676 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                419  & 27 \\
+                \hline
+                39 & 177 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - SVM}
+            \label{tab:combined_table}
+            \end{table}
+
+        \item Random Forest
+            \begin{table}[htbp]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.9676 & 0.9945 \\
+                \hline
+                Test Train Split & 0.9705 & 1.0 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                294 & 0 \\
+                \hline
+                13 & 134 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - Random Forest}
+            \label{tab:combined_table}
+            \end{table}
+        
+        \item Neural Network
+            
+            \begin{table}[H]
+            \centering
+            \begin{tabular}{c} % Single column table to encapsulate the two tables
+                % First table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                Model & Accuracy & Precision \\
+                \hline
+                k-fold cross validation & 0.6797 & 0.4981 \\
+                \hline
+                Test Train Split & 0.73 & 0.78 \\
+                \hline
+                \end{tabular}
+                \vspace{5mm} \\ % Space between the two tables
+
+                
+                % Second table
+                \begin{tabular}{|c|c|c|}
+                \hline
+                287 & 7 \\
+                \hline
+                112 & 35 \\
+                \hline
+                \end{tabular} \\
+            \end{tabular}
+            \caption{Model Performance and Confusion Matrix of Test Train Split - Neural Network}
+            \label{tab:combined_table}
+            \end{table}
+            
+
+
+            
+\end{itemize}
+
+
+\end{itemize}
+\end{document}
